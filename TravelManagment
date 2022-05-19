@@ -1,0 +1,50 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <windows.h>
+
+using namespace std;
+void menu();
+
+class Customers {
+public:
+	// Class Attributes
+	string name, phoneNumber;
+	int age;
+	static int customerID;
+	char all[999];
+
+	void setDetails() {  // Add new customer to txt file 
+
+		ofstream myFile("old-customer.txt", ios::app); 
+		{
+			// Prompt for user input
+			cout << "Please enter customer name: " << endl;
+			cin >> name;
+
+			cout << "Please enter customer age: " << endl;
+			cin >> age;
+
+			cout << "Please enter customer contact number: " << endl;
+			cin >> phoneNumber;
+
+			cout << "Please enter customer ID number: " << endl;
+			cin >> customerID;
+		}
+
+		// Write to file
+		myFile << "\n Customer ID: " << customerID << "\n Customer Name: " << name << "\n Customer Age: " << age
+			<< "\n Customer Number: " << phoneNumber << endl;
+		
+		// Close file
+		myFile.close();
+
+		cout << "\n Our records have been updated to include your details." << endl;
+
+		// Return to main menu
+		cout << "Returning to main menu..." << endl;
+		Sleep(999);
+		system("CLS");
+		menu();
+
+	}
