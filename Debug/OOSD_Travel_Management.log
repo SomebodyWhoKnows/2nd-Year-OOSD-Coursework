@@ -1,0 +1,5 @@
+﻿  Travel_Manager.cpp
+C:\Users\lanna\source\repos\OOSD_Travel_Management\Travel_Manager.cpp(122,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\lanna\source\repos\OOSD_Travel_Management\Travel_Manager.cpp(126,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\lanna\source\repos\OOSD_Travel_Management\Travel_Manager.cpp(130,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  OOSD_Travel_Management.vcxproj -> C:\Users\lanna\source\repos\OOSD_Travel_Management\Debug\OOSD_Travel_Management.exe

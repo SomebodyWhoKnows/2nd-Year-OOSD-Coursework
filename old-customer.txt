@@ -1,0 +1,19 @@
+ Customer ID: 1
+ Customer Name: Dave
+ Customer Age: 10
+ Customer Number: 1
+
+ Customer ID: 0
+ Customer Name: fyrwgukhbcsaL
+ Customer Age: 0
+ Customer Number: 
+
+ Customer ID: 1
+ Customer Name: Dave
+ Customer Age: 10
+ Customer Number: 1
+
+ Customer ID: 3445
+ Customer Name: James
+ Customer Age: 23
+ Customer Number: 6049643
