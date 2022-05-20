@@ -48,3 +48,554 @@ public:
 		menu();
 
 	}
+
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <windows.h>
+
+using namespace std;
+void menu();
+
+class Customers {
+public:
+	// Class Attributes
+	string name, phoneNumber;
+	int age;
+	static int customerID;
+	char all[999];
+
+	void setDetails() {  // Add new customer to txt file 
+
+		ofstream myFile("old-customer.txt", ios::app); 
+		{
+			// Prompt for user input
+			cout << "Please enter customer name: " << endl;
+			cin >> name;
+
+			cout << "Please enter customer age: " << endl;
+			cin >> age;
+
+			cout << "Please enter customer contact number: " << endl;
+			cin >> phoneNumber;
+
+			cout << "Please enter customer ID number: " << endl;
+			cin >> customerID;
+		}
+
+		// Write to file
+		myFile << "\n Customer ID: " << customerID << "\n Customer Name: " << name << "\n Customer Age: " << age
+			<< "\n Customer Number: " << phoneNumber << endl;
+		
+		// Close file
+		myFile.close();
+
+		cout << "\n Our records have been updated to include your details." << endl;
+
+		// Return to main menu
+		cout << "Returning to main menu..." << endl;
+		Sleep(999);
+		system("CLS");
+		menu();
+
+	}
+		
+	
+
+	void getDetails() {  // Read customer information
+		ifstream myFile("old-customer.txt");
+		{
+			if (!myFile) {  // Check if file can be found
+				cout << "File Error! Not found!" << endl;
+			}
+		
+		} while (!(myFile.eof())) {  // Read out all lines of file
+			myFile.getline(all, 999);
+			cout << all << endl;
+		}
+		myFile.close();  // Close file
+
+		
+		// Return to main menu
+		int selection;
+		cout << "Enter 1 to return to the main menu: ";
+		cin >> selection;
+		
+		switch (selection) {
+		case 1: 
+			system("CLS");
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+		
+		default:
+			system("CLS");
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+
+		}
+		
+
+	}
+
+};
+
+class Cabs {
+public:
+	// Class Attributes
+	int cabChoice, distance;
+	static float cabCost;
+	float lastCabCost;
+
+	void cabDetails() {  // Show transport options
+
+		// Prompt user for input
+		cout << "Please select a cab from the below options: " << endl;
+		cout << "1. ABC Cabs - Standard cab - \x9C 1.00 per mile" << endl;
+		cout << "2. ABC Cabs - Luxary cab - \x9C 3.00 per mile" << endl;
+		cout << "3. Toretto Taxis - Family cab - \x9C 5.00 per mile" << endl << endl;
+
+		cout << "To estimate the cost of your journey please select a cab: ";
+		cin >> cabChoice;
+		cout << "\nTo estimate cost of your journey please enter your journey distance: ";
+		cin >> distance;
+
+		// Calculate cost of journey
+		int hireCab;
+		switch (cabChoice) {
+		
+		case 1:
+			cabCost = 1.00 * distance;
+			break;
+		
+		case 2:
+			cabCost = 3.00 * distance;
+			break;
+		
+		case 3:
+			cabCost = 5.00 * distance;
+			break;
+		
+		default:
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+
+		}
+
+		// Display cost of journey
+		cout << "\nYour journey cost estimate is: \x9C " << cabCost << endl;
+		cout << "Would you like to book this journey? (1 = Yes, 2 = Back, 0 = Main menu): ";
+		cin >> hireCab;
+		system("CLS");
+
+		// Check if user wished to book journey
+		if (hireCab == 1) {
+			lastCabCost = cabCost;
+			cout << "Booking confirmed!" << endl;
+			Sleep(999);
+			system("CLS");
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+		}
+
+		else if (hireCab == 2) {
+			cout << "Returning..." << endl;
+			Sleep(999);
+			system("CLS");
+			cabDetails();
+		}
+
+		else if (hireCab == 0) {
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+		}
+		else {
+			cout << "You have selected a invalid input. Please try again." << endl;
+			Sleep(999);
+			system("CLS");
+			cabDetails();
+		}
+		
+	}
+
+};
+
+class Bookings {
+public:
+	// Class Attributes
+	int hotelChoice, packageChoice;
+	static float hotelCost;
+	int duration;
+	float costPerNight;
+
+	void hotels() {  // Prompt user for hotel selection
+
+		// Prompt user for duration of stay
+		cout << "How many nights is your stay: ";
+		cin >> duration;
+		system("CLS");
+
+		// Display the available hotels
+		string hotelNo [] = { "The Hilton", "Four Seasons", "Hairy Harry's Hotel"};
+		for (int i = 0; i < 3; i++) {
+			cout << i + 1 << ". " << hotelNo[i] << endl;
+			}
+		cout << "\nPlease select a hotel to view available rooms: ";
+		cin >> hotelChoice;
+		system("CLS");
+
+		// Show room choices
+		switch (hotelChoice) {
+		case 1:
+			cout << "1. Basic Room: \x9C 100.00 Per Night" << endl;
+			cout << "2. Luxary Room: \x9C 150.00 Per Night" << endl;
+			cout << "3. Suite Room: \x9C 500.00 Per Night" << endl;
+			cout << "\nPlease select a room: ";
+			cin >> packageChoice;
+			
+			switch (packageChoice){
+			case 1: 
+				costPerNight = 100.00;
+				break;
+			case 2: 
+				costPerNight = 150.00;
+				break;
+			case 3:
+				costPerNight = 500.00;
+				break;
+			default:
+				cout << "You have selected a invalid input. Please try again." << endl;
+				Sleep(999);
+				system("CLS");
+				hotels();
+				break;
+			}
+			break;
+
+		case 2:
+			cout << "1. Basic Room: \x9C 200.00 Per Night" << endl;
+			cout << "2. Luxary Room: \x9C 350.00 Per Night" << endl;
+			cout << "3. Suite Room: \x9C 1000.00 Per Night" << endl;
+			cout << "\nPlease select a room: ";
+			cin >> packageChoice;
+			
+			switch (packageChoice) {
+			case 1:
+				costPerNight = 200.00;
+				break;
+			case 2:
+				costPerNight = 350.00;
+				break;
+			case 3:
+				costPerNight = 1000.00;
+				break;
+			default:
+				cout << "You have selected a invalid input. Please try again." << endl;
+				Sleep(999);
+				system("CLS");
+				hotels();
+				break;
+			}
+			break;
+
+		case 3:
+			cout << "1. Basic Room: \x9C 10.00 Per Night" << endl;
+			cout << "2. Luxary Room: \x9C 20.00 Per Night" << endl;
+			cout << "3. Suite Room: \x9C 25.00 Per Night" << endl;
+			cout << "\nPlease select a room: ";
+			cin >> packageChoice;
+			
+			switch (packageChoice) {
+			case 1:
+				costPerNight = 10.00;
+				break;
+			case 2:
+				costPerNight = 20.00;
+				break;
+			case 3:
+				costPerNight = 25.00;
+				break;
+
+			default:
+				cout << "You have selected a invalid input. Please try again." << endl;
+				Sleep(999);
+				system("CLS");
+				hotels();
+				break;
+			}
+			break;
+
+		default:
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+		}
+
+		// Display cost of stay
+		int selection;
+		system("CLS");
+		cout << "Your stay will cost: \x9C" << costPerNight * duration << endl;
+		cout << "Would you like to book this room? (1 = Yes, 2 = Back, 0 = Main menu): ";
+		cin >> selection;
+		
+		// Confirm booking
+		switch (selection) {
+
+		case 1:
+			hotelCost = costPerNight * duration;
+			system("CLS");
+			cout << "Booking confirmed";
+			Sleep(999);
+			system("CLS");
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+
+		case 2:
+			system("CLS");
+			cout << "Returning...";
+			Sleep(999);
+			system("CLS");
+			hotels();
+			break;
+
+		case 0:
+			system("CLS");
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+
+		default:
+			system("CLS");
+			cout << "You have selected a invalid input. Please try again." << endl;
+			Sleep(999);
+			system("CLS");
+			hotels();
+			break;
+		}
+	}
+};
+
+// Create variables needed from other classes as static
+int Customers::customerID;
+float Bookings::hotelCost;
+float Cabs::cabCost;
+
+class Financials : public Bookings, Cabs, Customers {
+public:
+	char all[999];
+	void ProcessBill() {  // Calculate total cost of holiday
+		
+		// Write receipt to file
+		ofstream receipt("receipt.txt", ios::app);
+		{
+
+			receipt << "--------- Get Away Holidays Limited ---------" << endl;
+			receipt << "------------------ Receipt ------------------" << endl;
+			receipt << "_____________________________________________" << endl;
+			receipt << "Customer ID: " << Customers::customerID << endl;
+			receipt << "Cost Breakdown: " << endl << endl;
+			receipt << "Hotel Cost: " << Bookings::hotelCost << endl;
+			receipt << "Transport Cost: " << Cabs::cabCost << endl;
+			receipt << "_____________________________________________" << endl;
+			receipt << "Total Cost: " << Bookings::hotelCost + Cabs::cabCost << endl;
+			receipt << "_____________________________________________" << endl;
+
+		}
+		cout << "Receipt printed to file 'receipt.txt'" << endl;
+		Sleep(999);
+		receipt.close();
+
+		// Return to menu
+		system("CLS");
+		cout << "Returning to main menu..." << endl;
+		Sleep(999);
+		system("CLS");
+		menu();
+	}
+
+	void viewBill() {  // View previous receipts
+		ifstream inreceipt("receipt.txt");
+		{
+			if (!inreceipt) {
+				cout << "Bill not found." << endl;
+			}
+			while (!(inreceipt.eof())) {
+				inreceipt.getline(all, 999);
+				cout << all << endl;
+			}
+			inreceipt.close();
+		}
+
+		// Return to main menu
+		int selection;
+		cout << "Enter 1 to return to the main menu: ";
+		cin >> selection;
+
+		switch (selection) {
+		case 1:
+			system("CLS");
+			cout << "Returning to main menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+
+		default:
+			system("CLS");
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+			break;
+
+		}
+
+	}
+
+};
+
+void menu() {
+	int menuChoice, subChoice;
+
+	cout << "--------- Get Away Holidays Limited ---------" << endl;
+	cout << "---------------- Main Menu ------------------" << endl;
+	cout << "_____________________________________________" << endl;
+	cout << "\t   1. Customer Management" << endl;
+	cout << "\t   2. Transport Management" << endl;
+	cout << "\t   3. Bookings Management" << endl;
+	cout << "\t   4. Financials" << endl;
+	cout << "\t   5. Exit" << endl;
+	cout << "_____________________________________________" << endl;
+
+	cout << "Please select a option: ";
+	cin >> menuChoice;
+
+	system("CLS");
+
+	// Create object of each class
+	Customers customers;
+	Cabs cabs;
+	Bookings bookings;
+	Financials financials;
+
+	// Select the menu options
+	switch (menuChoice) {
+	case 1:
+		cout << "Loading Customer System..." << endl;
+		Sleep(999);
+		system("CLS");
+		cout << "\t Customers \t" << endl;
+		cout << "1. Enter new customer" << endl;
+		cout << "2. View previous customers" << endl;
+		cout << "Please select a option: ";
+		cin >> subChoice;
+		
+		switch (subChoice) {
+		case 1:
+			cout << "Loading new customer system...";
+			Sleep(999);
+			system("CLS");
+			customers.setDetails();
+			break;
+		case 2:
+			cout << "Loading customer database...";
+			Sleep(999);
+			system("CLS");
+			customers.getDetails();
+			break;
+		default:
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+		}
+		break;
+
+	case 2:
+		cout << "Loading Transport System..." << endl;
+		Sleep(999);
+		system("CLS");
+		cabs.cabDetails();
+		break;
+
+	case 3:
+		cout << "Loading Bookings System..." << endl;
+		Sleep(999);
+		system("CLS");
+		bookings.hotels();
+		break;
+
+	case 4:
+		cout << "Loading Financial System..." << endl;
+		Sleep(999);
+		system("CLS");
+		cout << "\t Financial \t" << endl;
+		cout << "1. Enter new receipt" << endl;
+		cout << "2. View previous receipt" << endl;
+		cout << "Please select an option: ";
+		cin >> subChoice;
+		
+		switch (subChoice) {
+		case 1:
+			system("CLS");
+			cout << "Loading receipt system...";
+			Sleep(999);
+			system("CLS");
+			financials.ProcessBill();
+			break;
+
+		case 2:
+			system("CLS");
+			cout << "Loading receipt history system...";
+			Sleep(999);
+			system("CLS");
+			financials.viewBill();
+			break;
+
+		default:
+			system("CLS");
+			cout << "Invalid selection! Redirecting to menu..." << endl;
+			Sleep(999);
+			system("CLS");
+			menu();
+		}
+		break;
+
+	case 5:
+		cout << "Goodbye" << endl;
+		Sleep(999);
+		system("CLS");
+		break;
+		
+	default:
+		cout << "Invalid selection! Redirecting to menu..." << endl;
+		Sleep(999);
+		system("CLS");
+		menu();
+
+	}
+
+} 
+
+int main() {
+	menu();
+	return 0;
+}
